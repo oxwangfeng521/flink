@@ -266,6 +266,9 @@ public class MetricQueryService extends RpcEndpoint implements MetricQueryServic
                         ? METRIC_QUERY_SERVICE_NAME
                         : METRIC_QUERY_SERVICE_NAME + "_" + resourceID.getResourceIdString();
 
+	// in the ipv6 scenario, endpointId include illegal charegal '[' and ']', may cause MetricQueryService exception
+	endpointId = endpointId.replaceAll("\\[", "_").replaceAll("]", "_");
+
         return new MetricQueryService(rpcService, endpointId, maximumFrameSize);
     }
 }
